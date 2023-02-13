@@ -10,35 +10,25 @@ public class TicTacToe {
     private final int EMPTY_VALUE = 0;
 
     public void addMove(int x, int y) {
-//        if (hasWinner()) {
-//            System.out.println("Game over");
-//            return;
-//        }
+        if (hasWinner()) {
+            System.out.println("Game over");
+            return;
+        }
+        if (draw()) {
+            System.out.println(" ");
+            return;
+        }
         if ((x < 0 || x > 2) || (y < 0 || y > 2) || (array[x][y] != EMPTY_VALUE)) {
             System.out.println("Enter other number");
             return;
         }
         array[x][y] = (isPlayerOne) ? CROSS : ZERO;
         isPlayerOne = !isPlayerOne;
-        if (hasWinner()) {
-            System.out.println("Game over");
-            return;
-        }
-        if(draw()){
-            return;
-        }
-//        if (hasWinner()) {
-//            if (isPlayerOne) {
-//                System.out.println("Player two winner");
-//            } else {
-//                System.out.println("Player one winner");
-//            }
-//        }
     }
 
     public Optional<String> getWinner() {
         if (hasWinner()) {
-            return isPlayerOne?Optional.of("Player two winner"):Optional.of("Player one winner");
+            return isPlayerOne ? Optional.of("Player two winner") : Optional.of("Player one winner");
         }
         return Optional.empty();
     }
@@ -110,10 +100,11 @@ public class TicTacToe {
         }
         return false;
     }
-    public boolean draw(){
-        for(int i=0;i<array.length;i++){
-            for(int j=0;j<array[i].length;j++){
-                if(array[i][j]==EMPTY_VALUE){
+
+    public boolean draw() {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                if (array[i][j] == EMPTY_VALUE) {
                     return false;
                 }
             }
@@ -121,25 +112,6 @@ public class TicTacToe {
         return true;
     }
 
-    //    public boolean checkRightDiagonal() {
-//        int helper = 0;
-//        int x = array.length - 1;
-//        int y = 0;
-//        while (x > 0) {
-//            if (array[x][y] == EMPTY_VALUE) {
-//                break;
-//            }
-//            if (array[x][y] == array[x - 1][y + 1]) {
-//                helper++;
-//            }
-//            x--;
-//            y++;
-//        }
-//        if (helper == array.length - 1) {
-//            return true;
-//        }
-//        return false;
-//    }
     public boolean hasWinner() {
         return checkHorizontal() || checkVertical() || checkLeftDiagonal() || checkRightDiagonal();
     }
