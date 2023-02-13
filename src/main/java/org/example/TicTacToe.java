@@ -10,16 +10,23 @@ public class TicTacToe {
     private final int EMPTY_VALUE = 0;
 
     public void addMove(int x, int y) {
-        if (hasWinner()) {
-            System.out.println("Game over");
-            return;
-        }
+//        if (hasWinner()) {
+//            System.out.println("Game over");
+//            return;
+//        }
         if ((x < 0 || x > 2) || (y < 0 || y > 2) || (array[x][y] != EMPTY_VALUE)) {
             System.out.println("Enter other number");
             return;
         }
         array[x][y] = (isPlayerOne) ? CROSS : ZERO;
         isPlayerOne = !isPlayerOne;
+        if (hasWinner()) {
+            System.out.println("Game over");
+            return;
+        }
+        if(draw()){
+            return;
+        }
 //        if (hasWinner()) {
 //            if (isPlayerOne) {
 //                System.out.println("Player two winner");
@@ -102,6 +109,16 @@ public class TicTacToe {
             return true;
         }
         return false;
+    }
+    public boolean draw(){
+        for(int i=0;i<array.length;i++){
+            for(int j=0;j<array[i].length;j++){
+                if(array[i][j]==EMPTY_VALUE){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     //    public boolean checkRightDiagonal() {
